@@ -6,7 +6,14 @@ class CountersController < ApplicationController
 
   def update
     @counter.update(count: @counter.count + 1)
-    redirect_to counters_path
+    respond_to do |format|
+      format.json {
+        render json: @counter
+      }
+      format.html {
+        redirect_to counters_path
+      }
+    end
   end
 
   private def set_counter
